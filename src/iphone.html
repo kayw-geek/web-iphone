@@ -1,0 +1,421 @@
+<html lang='zh-CN'>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<style>
+	html{
+		-webkit-tap-highlight-color: rgba(0,0,0,0);
+	}
+	body{
+		font-family: "Open Sans";
+	    background: #FFF;
+	    color: #000;
+	    line-height: 1;
+	    font-size: 15px;
+	}
+	*:before, *:after {
+	    -webkit-box-sizing: border-box;
+	    -moz-box-sizing: border-box;
+	    box-sizing: border-box;
+	}
+	*{
+		-webkit-box-sizing: border-box;
+	    -moz-box-sizing: border-box;
+	    box-sizing: border-box;
+	}
+	div{
+		display: block;
+	}
+    [v-cloak] {
+        display: none;
+    }
+    .bg{
+        background-color: #0a0a0a;
+        transition: all 1s ease 0s;
+        overflow: hidden;
+    }
+    .iphone{
+        width: 207px;
+        height: 410px;
+        margin: 0 auto;
+        border: 4px solid #ef1e1ed4;
+        border-radius: 35px;
+        position: relative;
+        box-shadow: 1px 0px 4px 1px #46465dcc;
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+    .ipone-inside{
+        width: 201px;
+        height: 402px;
+        margin: 0 auto;
+        border: 7px solid #151515;
+        border-radius: 30px 30px 30px 30px;
+        background-color: #0b93d5;
+        background: url("https://static.chasing-innovation.com/demo/39aa7e3169c746f2d51a68364100ea1c.jpg") center center no-repeat;
+        background-size: 189px 391px;
+    }
+    .bang{
+        margin: 0 auto;
+        width: 115px;
+        height: 16px;
+        background: #0a0a0a;
+        border-radius: 0px 0px 40px 40px;
+        position: relative;
+        margin-top: -1px;
+
+    }
+    .receiver{
+        margin: 0 auto;
+        width: 43px;
+        height: 6px;
+        background: #1a1a1a;
+        border: 1px solid #242432b8;
+        display: block;
+        border-radius: 20px;
+    }
+    .f-camera{
+        width: 8px;
+        height: 8px;
+        background: #27426a96;
+        display: block;
+        position: absolute;
+        left: 80px;
+        top: -1px;
+        border-radius: 50%;
+        filter: drop-shadow(1px 1px 3px #9aa6b8);
+    }
+    .switch{
+        width: 3px;
+        height: 24px;
+        display: block;
+        position: absolute;
+        background-color: #ef1e1ed4;
+        border-radius: 5px;
+        top: 59px;
+        left: -6px;
+        box-shadow: 3px 1px 8px #d22929a3
+    }
+    .up{
+        width: 5px;
+        height: 39px;
+        display: block;
+        position: absolute;
+        background-color: #ef1e1ed4;
+        border-radius: 5px;
+        top: 99px;
+        left: -6px;
+        box-shadow: 3px 1px 8px #d22929a3;
+    }
+    .down{
+        width: 6px;
+        height: 42px;
+        display: block;
+        position: absolute;
+        background-color: #ef1e1ed4;
+        border-radius: 5px;
+        top: 147px;
+        left: -6px;
+        box-shadow: 1px -2px 8px #d22929a3;
+    }
+    .lock{
+        width: 4px;
+        height: 52px;
+        display: block;
+        position: absolute;
+        background-color: #ef1e1ed4;
+        border-radius: 5px;
+        top: 105px;
+        left: 201px;
+        box-shadow: 3px 1px 8px #d22929a3;
+    }
+    .MNO{
+        color: #ffffff;
+        font-size: xx-small;
+        font-family: 'Open Sans';
+        transform: scale(0.6);
+        display: inline-block;
+        position: absolute;
+        top: 11px;
+        left: 5px;
+    }
+    .icon-right{
+        position: absolute;
+        top: 13px;
+        left: 150px;
+        width: 42px;
+        height: 10px;
+    }
+    .signal,.wifi{
+        transform: scale(0.7);
+        margin-right: -7px;
+        margin-top: -3px;
+
+    }
+    .battery{
+        transform: scale(0.9);
+        margin-right: -3px;
+        margin-top: -3px;
+    }
+    .lock-icon{
+        position: absolute;
+        left: 85px;
+        top: 37px;
+        transform: scale(0.92);
+    }
+    .datetime{
+	    position: absolute;
+	    left: 53px;
+	    top: 65px;
+    }
+    .time{
+        color: #fff;
+        font-family: 'Open Sans';
+        font-size: 38px;
+        font-weight: 400;
+        line-height: 0px;
+    }
+    .date{
+        color: #fff;
+        font-family: 'Open Sans';
+        font-size: 13px;
+        font-weight: 400;
+        line-height: 0px;
+    }
+    .bottom-icon{
+        width: 35px;
+        cursor: pointer;
+        height: 35px;
+        border-radius: 50%;
+        /* border: 1px solid; */
+        backdrop-filter: blur(25px);
+        position: absolute;
+        bottom: 30px;
+        left: 25px;
+        background-color: #07060687;
+    }
+    .bottom-icon-right{
+        width: 35px;
+        height: 35px;
+        cursor: pointer;
+        border-radius: 50%;
+        /* border: 1px solid; */
+        backdrop-filter: blur(25px);
+        position: absolute;
+        bottom: 30px;
+        left: 145px;
+        background-color: #07060687;
+    }
+    .flashlight,.camera-icon{
+        padding: 6px 2px 2px 5px;
+    }
+    .camera{
+        width: 100%;
+        height: 258px;
+        margin-top: 24px;
+    }
+    .taking{
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background-color: #ff000000;
+        position: absolute;
+        left: 83px;
+        bottom: 40px;
+    }
+    #preview{
+        width: 36px;
+        height: 36px;
+        position: absolute;
+        left: 12px;
+        bottom: 40px;
+        transition: all 1s ease 0s;
+
+    }
+    #preview img{
+        border-radius: 4px;
+        transition: all 1s ease 0s;
+    }
+    .rail-bar{
+        width: 95px;
+        cursor: pointer;
+        height: 4px;
+        border-radius: 6px;
+        position: absolute;
+        bottom: 10px;
+        left: 55px;
+        background-color: #bca5a5;
+    }
+    .rail-bar:hover{
+        background-color: #fff;
+    }
+</style>
+<script src="https://static.chasing-innovation.com/js/jquery.min.js"></script>
+<script src="https://static.chasing-innovation.com/vue.min.js"></script>
+<script src="https://static.chasing-innovation.com/js/webcam.js"></script>
+<body>
+	<div class="bg">
+    <div class="iphone">
+        <i class="switch"></i>
+        <i class="up"></i>
+        <i class="down"></i>
+        <i class="lock"></i>
+        <div class="ipone-inside">
+            <div class="bang">
+                <i class="receiver"></i>
+                <i class="f-camera"></i>
+            </div>
+            <span class="MNO" v-show="notCamera">中国电信</span>
+            <div class="camera" v-show="!notCamera">
+            </div>
+            <a href="javascript:void(0)" class="taking" v-show="!notCamera" @click="selfie"></a>
+            <div id="preview" v-cloak v-show="!notCamera">
+                <img  :src="previewImg" width="36px" height="36px" alt="">
+            </div>
+            <div class="rail-bar" @mousedown="watchRailbarDown()" @drag="goHome()"  @mouseup="watchRailbarUp()" @mouseout="watchRailbarUp()" v-show="!notCamera"></div>
+            <div class="icon-right" v-show="notCamera">
+                <svg t="1618891395663" class="icon signal" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="9546" width="16" height="16"><path d="M192.078 549.53h-91.406C79.314 549.53 62 566.843 62 588.2v166.377c0 21.358 17.314 38.672 38.672 38.672h91.406c21.358 0 38.672-17.314 38.672-38.672V588.201c0-21.357-17.314-38.672-38.672-38.672z m243.72-93.78h-91.405c-21.358 0-38.672 17.314-38.672 38.672v260.156c0 21.358 17.314 38.672 38.672 38.672h91.406c21.357 0 38.672-17.314 38.672-38.672V494.422c0-21.358-17.315-38.672-38.672-38.672z m241.436-112.5h-91.406c-21.357 0-38.672 17.314-38.672 38.672v372.656c0 21.358 17.315 38.672 38.672 38.672h91.406c21.358 0 38.672-17.314 38.672-38.672V381.922c0-21.358-17.314-38.672-38.672-38.672z m246.094-112.5h-91.406c-21.358 0-38.672 17.314-38.672 38.672v485.156c0 21.358 17.314 38.672 38.672 38.672h91.406c21.358 0 38.672-17.314 38.672-38.672V269.422c0-21.358-17.314-38.672-38.672-38.672z" p-id="9547" fill="#ffffff"></path></svg>
+                <svg t="1618891679230" class="icon wifi" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="10705" width="16" height="16"><path d="M488.885 307.2c141.743 0 277.99 54.434 380.713 151.983 7.706 7.545 20.048 7.384 27.701-0.27l73.89-74.536a20.534 20.534 0 0 0-0.162-29.103C701.5 97.118 276.27 97.118 6.69 355.274a20.534 20.534 0 0 0-0.162 29.103l73.944 74.537c7.545 7.707 19.94 7.76 27.702 0.215A552.798 552.798 0 0 1 488.83 307.2z m0 242.526c77.878 0 152.953 28.888 210.675 81.112a19.833 19.833 0 0 0 27.702-0.377l73.835-74.537a20.588 20.588 0 0 0-0.323-29.319 458.105 458.105 0 0 0-623.616 0 20.588 20.588 0 0 0-0.27 29.32l73.836 74.536c7.546 7.599 19.887 7.76 27.648 0.377a313.937 313.937 0 0 1 210.513-81.112zM630.79 727.58a20.049 20.049 0 0 0-0.593-29.157 218.974 218.974 0 0 0-282.624 0 20.049 20.049 0 0 0-0.593 29.21l127.73 128.81a19.941 19.941 0 0 0 28.35 0l127.73-128.81z" p-id="10706" fill="#ffffff"></path></svg>
+                <svg t="1618893985082" class="ico battery" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="14988" width="16" height="16"><path d="M792 288H128c-52.8 0-96 43.2-96 96v256c0 52.8 43.2 96 96 96h664c52.8 0 96-43.2 96-96V384c0-52.8-43.2-96-96-96z m40 352c0 22-18 40-40 40H128c-22 0-40-18-40-40V384c0-22 18-40 40-40h664c22 0 40 18 40 40v256z m96-230.8v205.6c32 0 64-55.4 64-102.8s-32-102.8-64-102.8z" p-id="14989" fill="#ffffff"></path><path d="M768 384H152c-13.2 0-24 10.8-24 24v208c0 13.2 10.8 24 24 24h616c13.2 0 24-10.8 24-24V408c0-13.2-10.8-24-24-24z" p-id="14990" fill="#ffffff"></path></svg>
+            </div>
+            <div class="lock-icon" v-show="notCamera">
+                <svg t="1618892441647" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="12458" width="32" height="32"><path d="M365.714286 438.857143l292.571429 0 0-109.714286q0-60.562286-42.861714-103.424t-103.424-42.861714-103.424 42.861714-42.861714 103.424l0 109.714286zM841.142857 493.714286l0 329.142857q0 22.820571-16.018286 38.838857t-38.838857 16.018286l-548.571429 0q-22.820571 0-38.838857-16.018286t-16.018286-38.838857l0-329.142857q0-22.820571 16.018286-38.838857t38.838857-16.018286l18.285714 0 0-109.714286q0-105.179429 75.410286-180.589714t180.589714-75.410286 180.589714 75.410286 75.410286 180.589714l0 109.714286 18.285714 0q22.820571 0 38.838857 16.018286t16.018286 38.838857z" p-id="12459" fill="#ffffff"></path></svg>
+            </div>
+            <div class="datetime" v-show="notCamera">
+                <p class="time" v-cloak>{{currentTime}}</p>
+                <p class="date" v-cloak>{{date}}</p>
+            </div>
+            <div class="bottom-icon" @click="switchLight" v-show="notCamera">
+                <svg t="1618893523865" class="icon flashlight" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="13588" width="32" height="32"><path d="M634 64H390c-35.2 0-48 28.8-48 64h340c0-35.2-12.8-64-48-64zM392.2 295c15.2 17.6 23.8 40 23.8 63.4v531.8c0 43.8 35.8 69.8 79.8 69.8h32.6c43.8 0 79.8-25.8 79.8-69.8V358.4c0-23.4 8.6-45.6 23.8-63.4 30.8-35.8 50-69 50-135H342c0 70 19.2 99.2 50.2 135z m63.8 181.6c0-31.2 25.2-56.6 56-56.6s56 25.4 56 56.6v70.8c0 31.2-25.2 56.6-56 56.6s-56-25.4-56-56.6v-70.8z" p-id="13589" fill="#ffffff"></path><path d="M512 546m-40 0a40 40 0 1 0 80 0 40 40 0 1 0-80 0Z" p-id="13590" fill="#ffffff"></path></svg>
+            </div>
+            <div class="bottom-icon-right" @click="openCamera" v-show="notCamera">
+                <svg t="1618893809662" class="icon camera-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="14158" width="32" height="32"><path d="M512 550m-115 0a115 115 0 1 0 230 0 115 115 0 1 0-230 0Z" p-id="14159" fill="#ffffff"></path><path d="M835 320H726c-9.2 0-17.8-4-24-10.8-56.8-63.6-78.2-85.2-101.4-85.2h-171c-23.4 0-46.4 21.6-103.4 85.4-6 6.8-14.8 10.6-23.8 10.6h-8.2v-16c0-8.8-7.2-16-16-16h-52c-8.8 0-16 7.2-16 16v16h-15C159.8 320 128 346.4 128 381.4v352c0 35 31.8 66.6 67 66.6h640c35.2 0 61-31.6 61-66.6v-352c0-35-25.8-61.4-61-61.4zM520 720.8c-100.6 4.6-183.4-78.2-178.8-178.8 4-87.8 75-158.8 162.8-162.8 100.6-4.6 183.4 78.2 178.8 178.8-4 87.8-75 158.8-162.8 162.8zM704 436c-14.4 0-26-11.6-26-26s11.6-26 26-26 26 11.6 26 26-11.6 26-26 26z" p-id="14160" fill="#ffffff"></path></svg>
+            </div>
+
+        </div>
+
+</div>
+</body>
+
+
+<script>
+    var app = new Vue({
+        el: ".iphone",
+        data:function(){
+            return {
+                timer:'',
+                currentTime: '',
+                date: '',
+                lightStatus:false,
+                notCamera:true,
+                previewImg:'https://static.chasing-innovation.com/demo/39aa7e3169c746f2d51a68364100ea1c.jpg'
+            }
+        },
+        beforeDestroy() {
+            if (this.timer) {
+                clearInterval(this.timer); // 在Vue实例销毁前，清除我们的定时器
+            }
+        },
+        mounted:function(){
+            this.getTime();
+            this.getDate();
+        },
+        watch:{
+            notCamera:function (val){
+                var imgHome = 'url("https://static.chasing-innovation.com/demo/39aa7e3169c746f2d51a68364100ea1c.jpg") center center no-repeat';
+                var imCamera = 'url("https://static.chasing-innovation.com/dome/10420144503.png") center center no-repeat';
+                if (val){
+                    $('.ipone-inside').css('background',imgHome);
+                    $('.ipone-inside').css('background-size','189px 391px');
+
+                }else{
+                    $('.ipone-inside').css('background',imCamera);
+                    $('.ipone-inside').css('background-size','189px 391px');
+
+                }
+            }
+        },
+        methods:{
+            goHome(){
+                this.notCamera = true;
+            },
+            watchRailbarDown() {
+                if (!this.notCamera){
+                    $('.rail-bar').css('transform','scale(1.1)');
+                }
+            },
+            watchRailbarUp(){
+                $('.rail-bar').css('transform','none');
+            },
+            selfie() {
+                var _this = this;
+                Webcam.snap( function(data_uri) {
+                    _this.previewImg = data_uri;
+                } );
+            },
+            openCamera(event) {
+                var el = event.currentTarget
+                $(el).css('transform',"scale(1.1)");
+                var _this = this;
+                setTimeout(function (){
+                    $(el).css('transform',"scale(1)");
+                    _this.notCamera = false;
+                    Webcam.set({
+                        width: 187,
+                        height: 258,
+                        image_format: 'jpeg',
+                        jpeg_quality: 90
+                    });
+                    Webcam.attach( '.camera' );
+
+                },500);
+
+            },
+            switchLight(event){
+                var el = event.currentTarget
+                if (this.lightStatus){
+                    $('.bg').css('background-color',"#000");
+                    $(el).css('transform',"none");
+                }else{
+                    $('.bg').css('background-color',"#fff");
+                    $(el).css('transform',"scale(1.1)");
+                }
+                this.lightStatus = !this.lightStatus;
+
+            },
+            getTime(){
+                var _this = this; //声明一个变量指向Vue实例this，保证作用域一致
+                this.timer = setInterval(function() {
+                    var t = //修改数据date
+                        new Date().getHours() +
+                        ":" +
+                        _this.appendZero(new Date().getMinutes());
+                    _this.currentTime = t;
+                }, 50);
+            },
+            appendZero(obj) {
+                if (obj < 10) {
+                    return "0" + obj;
+                } else {
+                    return obj;
+                }
+            },
+            getDate(){
+                var date = new Date();
+                var seperator1 = "-";
+                var year = date.getFullYear();
+                var month = date.getMonth() + 1;
+                var strDate = date.getDate();
+                if (month >= 1 && month <= 9) {
+                    month = "0" + month;
+                }
+                if (strDate >= 0 && strDate <= 9) {
+                    strDate = "0" + strDate;
+                }
+                var week = "星期" +"日一二三四五六".charAt(new Date().getDay());
+                var currentdate =   month + '月' + strDate + '日 '+ week;
+                this.date  = currentdate;
+            }
+        }
+    });
+</script>
+</html>
