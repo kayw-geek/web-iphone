@@ -93,7 +93,6 @@
         border-radius: 5px;
         top: 59px;
         left: -6px;
-        box-shadow: 3px 1px 8px #d22929a3
     }
     .up{
         width: 5px;
@@ -104,7 +103,6 @@
         border-radius: 5px;
         top: 99px;
         left: -6px;
-        box-shadow: 3px 1px 8px #d22929a3;
     }
     .down{
         width: 6px;
@@ -115,7 +113,6 @@
         border-radius: 5px;
         top: 147px;
         left: -6px;
-        box-shadow: 1px -2px 8px #d22929a3;
     }
     .lock{
         width: 4px;
@@ -126,7 +123,6 @@
         border-radius: 5px;
         top: 105px;
         left: 201px;
-        box-shadow: 3px 1px 8px #d22929a3;
     }
     .MNO{
         color: #ffffff;
@@ -271,7 +267,7 @@
             <div id="preview" v-cloak v-show="!notCamera">
                 <img  :src="previewImg" width="36px" height="36px" alt="">
             </div>
-            <div class="rail-bar" @mousedown="watchRailbarDown()" @drag="goHome()" @dragend="goHome()" @mouseup="watchRailbarUp()" @mouseout="watchRailbarUp()" v-show="!notCamera"></div>
+            <span draggable="true" class="rail-bar" @mousedown="watchRailbarDown()"  @dragend="goHome('drag')"  @mouseup="watchRailbarUp()"  ></span>
             <div class="icon-right" v-show="notCamera">
                 <svg t="1618891395663" class="icon signal" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="9546" width="16" height="16"><path d="M192.078 549.53h-91.406C79.314 549.53 62 566.843 62 588.2v166.377c0 21.358 17.314 38.672 38.672 38.672h91.406c21.358 0 38.672-17.314 38.672-38.672V588.201c0-21.357-17.314-38.672-38.672-38.672z m243.72-93.78h-91.405c-21.358 0-38.672 17.314-38.672 38.672v260.156c0 21.358 17.314 38.672 38.672 38.672h91.406c21.357 0 38.672-17.314 38.672-38.672V494.422c0-21.358-17.315-38.672-38.672-38.672z m241.436-112.5h-91.406c-21.357 0-38.672 17.314-38.672 38.672v372.656c0 21.358 17.315 38.672 38.672 38.672h91.406c21.358 0 38.672-17.314 38.672-38.672V381.922c0-21.358-17.314-38.672-38.672-38.672z m246.094-112.5h-91.406c-21.358 0-38.672 17.314-38.672 38.672v485.156c0 21.358 17.314 38.672 38.672 38.672h91.406c21.358 0 38.672-17.314 38.672-38.672V269.422c0-21.358-17.314-38.672-38.672-38.672z" p-id="9547" fill="#ffffff"></path></svg>
                 <svg t="1618891679230" class="icon wifi" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="10705" width="16" height="16"><path d="M488.885 307.2c141.743 0 277.99 54.434 380.713 151.983 7.706 7.545 20.048 7.384 27.701-0.27l73.89-74.536a20.534 20.534 0 0 0-0.162-29.103C701.5 97.118 276.27 97.118 6.69 355.274a20.534 20.534 0 0 0-0.162 29.103l73.944 74.537c7.545 7.707 19.94 7.76 27.702 0.215A552.798 552.798 0 0 1 488.83 307.2z m0 242.526c77.878 0 152.953 28.888 210.675 81.112a19.833 19.833 0 0 0 27.702-0.377l73.835-74.537a20.588 20.588 0 0 0-0.323-29.319 458.105 458.105 0 0 0-623.616 0 20.588 20.588 0 0 0-0.27 29.32l73.836 74.536c7.546 7.599 19.887 7.76 27.648 0.377a313.937 313.937 0 0 1 210.513-81.112zM630.79 727.58a20.049 20.049 0 0 0-0.593-29.157 218.974 218.974 0 0 0-282.624 0 20.049 20.049 0 0 0-0.593 29.21l127.73 128.81a19.941 19.941 0 0 0 28.35 0l127.73-128.81z" p-id="10706" fill="#ffffff"></path></svg>
@@ -335,18 +331,14 @@
             }
         },
         methods:{
-            goHome(){
+            goHome(a){
                 this.notCamera = true;
             },
             watchRailbarDown() {
-                if (!this.notCamera){
-                    $('.rail-bar').css('bottom','14px');
-                    $('.rail-bar').css('height','5px');
-                }
+                 $('.rail-bar').css('transform','scale(1.1)');
             },
             watchRailbarUp(){
-                $('.rail-bar').css('bottom','12px');
-                $('.rail-bar').css('height','4px');
+                $('.rail-bar').css('transform','none');
 
             },
             selfie() {
