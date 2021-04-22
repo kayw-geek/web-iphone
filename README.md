@@ -22,10 +22,8 @@ Todolist
 - 音乐
 
 Demo
+[Codepen](https://codepen.io/kayw-geek/pen/VwPEKXy)
 
-```
-https://codepen.io/kayw-geek/pen/VwPEKXy
-```
 
 截图
 
