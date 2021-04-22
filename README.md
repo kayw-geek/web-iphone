@@ -1,4 +1,4 @@
-# iphone-camera
+# web-iphone
 :iphone: 模拟iPhone 实现了拍照、手电筒、上滑底部横条等功能
 
 Features
