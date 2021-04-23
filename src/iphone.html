@@ -378,7 +378,11 @@
         overflow: hidden;
     }
     .mapboxgl-canvas{
-        outline: none;
+        position: absolute;
+	    top: 9px;
+	    border-radius: 20px;
+	    outline: none;
+	    overflow: hidden;
     }
 </style>
 <script src="https://static.chasing-innovation.com/js/jquery.min.js"></script>
@@ -571,7 +575,7 @@
         },
         methods:{
             getCoord(){
-                if (this.OpenMapStatus){
+                if (this.OpenMapStatus && $('.mapboxgl-canary').length > 0 ){
                     return ;
                 }
                 var _this = this;
