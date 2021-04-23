@@ -1,0 +1,30 @@
+{
+  "id": "2406616",
+  "name": "chasing",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon",
+  "description": "自用",
+  "glyphs": [
+    {
+      "icon_id": "1117121",
+      "name": "search",
+      "font_class": "search",
+      "unicode": "e64c",
+      "unicode_decimal": 58956
+    },
+    {
+      "icon_id": "20304061",
+      "name": "facebook-fenxiang",
+      "font_class": "facebook-fenxiang",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    },
+    {
+      "icon_id": "20240892",
+      "name": "vercode",
+      "font_class": "yanzhengma-denglu",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    }
+  ]
+}

@@ -53,6 +53,7 @@
         background-color: #0b93d5;
         background: url("https://static.chasing-innovation.com/demo/39aa7e3169c746f2d51a68364100ea1c.jpg") center center no-repeat;
         background-size: 189px 391px;
+        transition: background 0.3s linear;
     }
     .bang{
         margin: 0 auto;
@@ -83,6 +84,7 @@
         top: -1px;
         border-radius: 50%;
         filter: drop-shadow(1px 1px 3px #9aa6b8);
+        transition: background 0.3s linear;
     }
     .switch{
         width: 3px;
@@ -129,10 +131,13 @@
         font-size: xx-small;
         font-family: 'Open Sans';
         transform: scale(0.6);
-        display: inline-block;
+        display: inherit;
+        text-align: center;
+    }
+    .mno-block{
         position: absolute;
         top: 11px;
-        left: 5px;
+        width: 50px;
     }
     .icon-right{
         position: absolute;
@@ -224,26 +229,141 @@
         position: absolute;
         left: 12px;
         bottom: 40px;
-        transition: all 1s ease 0s;
+        transition: background 0.3s linear;
 
     }
     #preview img{
         border-radius: 4px;
-        transition: all 1s ease 0s;
+        transition: background 0.3s linear;
     }
     .rail-bar{
         width: 95px;
-        cursor: pointer;
+        cursor: grab;
         height: 4px;
         border-radius: 6px;
         position: absolute;
         bottom: 12px;
-        left: 55px;
+        left: 51px;
+        transform:none;
         background-color: #bca5a5;
+        transition: all .8s ease 0s;
     }
     .rail-bar:hover{
         background-color: #fff;
     }
+    .dock{
+        width: 180px;
+        height: 50px;
+        border-radius: 15px;
+        background: #f7f7f724;
+        backdrop-filter: blur(6px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        position: absolute;
+        bottom: 24px;
+        left: 10px;
+    }
+    .app{
+        width: 42px;
+        height: 42px;
+        cursor: pointer;
+
+    }
+    .search-bar{
+        background-color: #E8E8EA;
+        text-align: center;
+        width: 180px;
+        height: 27px;
+        margin: 0 auto;
+        margin-top: 20px;
+        border-radius: 5px;
+        font-size: 11px;
+        border: 1px;
+        display: block;
+        color: #909092;
+        caret-color:#2D64CB;
+    }
+    input:focus
+    {
+        width: 150px;
+        border: 0px;
+        outline: none;
+        text-align: left;
+    }
+    .search-right-text{
+        color: #2D64CB;
+        font-size: 11px;
+        cursor: pointer;
+    }
+    @font-face {font-family: 'iconfont';
+        src: url('./font/iconfont.eot');
+        src: url('./font/iconfont.eot?#iefix') format('embedded-opentype'),
+        url('./font/iconfont.woff') format('woff'),
+        url('./font/iconfont.ttf') format('truetype'),
+        url('./font/iconfont.svg#iconfont') format('svg');
+    }
+    .iconfont{
+        font-family:"iconfont" !important;
+        font-size:12px;font-style:normal;
+        -webkit-font-smoothing: antialiased;
+        -webkit-text-stroke-width: 0.2px;
+        -moz-osx-font-smoothing: grayscale;}
+    .bookmark{
+        border-top: 1px solid #B9B9BB;
+        border-bottom: 1px solid #B9B9BB;
+        height: 280px;
+        width: 100%;
+        background-color: #F1F0F5;
+        display: block;
+        margin-top: 8px;
+    }
+    .safari-footer{
+        width: 100%;
+        height: 40px;
+        background-color: #FBFBFD;
+        justify-content: space-around;
+        align-items: center;
+        display: flex;
+        border-radius: 20px;
+    }
+    .rail-tip{
+        width: 95px;
+        transform: none;
+        color: #bca5a5a6;
+        font-size: 9px;
+        margin: 0 auto;
+        transform: scale(0.8);
+        display: block;
+        margin-top: 340px;
+        transition: .5s;
+    }
+    .bookmark-text{
+        color: #050404;
+        font-size: 14px;
+        font-weight: bold;
+        margin-left: 8px;
+    }
+    .web-item{
+        display: flex;
+        flex-direction: column;
+        width: 52px;
+        height: 81px;
+        align-items: center;
+    }
+    .web-desc{
+        font-size: 10px;
+        font-weight: 500;
+        transform: scale(0.8);
+        margin-top: 0px;
+    }
+    .bookmark-iframe{
+        width: 100%;
+        height: 300px;
+        overflow: auto;
+    }
+
 </style>
 <script src="https://static.chasing-innovation.com/js/jquery.min.js"></script>
 <script src="https://static.chasing-innovation.com/vue.min.js"></script>
@@ -260,36 +380,65 @@
                 <i class="receiver"></i>
                 <i class="f-camera"></i>
             </div>
-            <span class="MNO" v-show="notCamera">中国电信</span>
-            <div class="camera" v-show="!notCamera">
+            <div class="mno-block">
+                <span class="MNO" v-cloak v-show="currentPage != 'cameraPage'">{{mno}}</span>
             </div>
-            <a href="javascript:void(0)" class="taking" v-show="!notCamera" @click="selfie"></a>
-            <div id="preview" v-cloak v-show="!notCamera">
+            <div class="homepage" v-show="currentPage == 'homePage'">
+                <div class="app-list" v-show="currentPage == 'homePage'"></div>
+                <div class="dock" v-show="currentPage == 'homePage'">
+                    <img class="app safari" @click="openSafari" src="https://static.chasing-innovation.com/demo/Hamzasaleem-Stock-Style-3-Safari.ico" alt="">
+                </div>
+            </div>
+            <div class="safari-page" v-show="currentPage == 'safariPage'">
+                <input @focus="searchFocus" @blur="searchBlur" @keyup.enter="searchSubmit()" type="text" class="search-bar iconfont"  :placeholder="'&#xe64c '+placeholder">
+                <span v-cloak class="search-right-text" @click="searchBlur" v-show="searchInputStatus == 'focus'">取消</span>
+                <div class="bookmark">
+                    <p class="bookmark-text">经常访问的网站</p>
+                    <div class="web-block">
+                        <div class="web-item">
+                            <a target="_blank" href="https://github.com/kayw-geek/web-iphone">
+                                <svg t="1619147325845" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3207" width="48" height="48"><path d="M864 64H160C107 64 64 107 64 160v704c0 53 43 96 96 96h704c53 0 96-43 96-96V160c0-53-43-96-96-96zM618.6 831.4c-16.8 3-23-7.4-23-16 0-10.8 0.4-66 0.4-110.6 0-31.2-10.4-51-22.6-61.4 74-8.2 152-18.4 152-146.2 0-36.4-13-54.6-34.2-78 3.4-8.6 14.8-44-3.4-90-27.8-8.6-91.4 35.8-91.4 35.8-26.4-7.4-55-11.2-83.2-11.2-28.2 0-56.8 3.8-83.2 11.2 0 0-63.6-44.4-91.4-35.8-18.2 45.8-7 81.2-3.4 90-21.2 23.4-31.2 41.6-31.2 78 0 127.2 74.6 138 148.6 146.2-9.6 8.6-18.2 23.4-21.2 44.6-19 8.6-67.6 23.4-96.6-27.8-18.2-31.6-51-34.2-51-34.2-32.4-0.4-2.2 20.4-2.2 20.4 21.6 10 36.8 48.4 36.8 48.4 19.4 59.4 112.2 39.4 112.2 39.4 0 27.8 0.4 73 0.4 81.2 0 8.6-6 19-23 16-132-44.2-224.4-169.8-224.4-316.6 0-183.6 140.4-323 324-323S840 331.2 840 514.8c0.2 146.8-89.4 272.6-221.4 316.6z m-196.2-122.2c-3.8 0.8-7.4-0.8-7.8-3.4-0.4-3 2.2-5.6 6-6.4 3.8-0.4 7.4 1.2 7.8 3.8 0.6 2.6-2 5.2-6 6z m-19-1.8c0 2.6-3 4.8-7 4.8-4.4 0.4-7.4-1.8-7.4-4.8 0-2.6 3-4.8 7-4.8 3.8-0.4 7.4 1.8 7.4 4.8z m-27.4-2.2c-0.8 2.6-4.8 3.8-8.2 2.6-3.8-0.8-6.4-3.8-5.6-6.4 0.8-2.6 4.8-3.8 8.2-3 4 1.2 6.6 4.2 5.6 6.8z m-24.6-10.8c-1.8 2.2-5.6 1.8-8.6-1.2-3-2.6-3.8-6.4-1.8-8.2 1.8-2.2 5.6-1.8 8.6 1.2 2.6 2.6 3.6 6.6 1.8 8.2z m-18.2-18.2c-1.8 1.2-5.2 0-7.4-3s-2.2-6.4 0-7.8c2.2-1.8 5.6-0.4 7.4 2.6 2.2 3 2.2 6.6 0 8.2z m-13-19.4c-1.8 1.8-4.8 0.8-7-1.2-2.2-2.6-2.6-5.6-0.8-7 1.8-1.8 4.8-0.8 7 1.2 2.2 2.6 2.6 5.6 0.8 7z m-13.4-14.8c-0.8 1.8-3.4 2.2-5.6 0.8-2.6-1.2-3.8-3.4-3-5.2 0.8-1.2 3-1.8 5.6-0.8 2.6 1.4 3.8 3.6 3 5.2z" p-id="3208" fill="#2c2c2c"></path></svg>
+                            </a>
+                            <p class="web-desc">Github 项目地址</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="safari-footer">
+                    <svg t="1619085628068" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2022" width="16" height="16"><path d="M670.977781 808.954249c-5.300726 0-10.596336-2.045589-14.603603-6.126534L368.69006 509.86743c-7.818059-7.961322-7.818059-20.717857 0-28.67918l287.684118-292.960285c7.92039-8.065699 20.877493-8.182356 28.942169-0.26299 8.065699 7.919367 8.182356 20.877493 0.264013 28.942169L411.976936 495.526817l273.603425 278.620695c7.918343 8.064676 7.801686 21.022803-0.264013 28.942169C681.331593 807.002804 676.153664 808.954249 670.977781 808.954249z" p-id="2023" fill="#C7C7C9"></path></svg>
+                    <svg t="1619085725215" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1828" width="16" height="16"><path d="M383.291616 808.954249c-5.175883 0-10.353812-1.950422-14.338566-5.862521-8.064676-7.919367-8.182356-20.877493-0.26299-28.942169l273.602402-278.620695L368.69006 216.907145c-7.919367-8.064676-7.801686-21.022803 0.26299-28.942169 8.065699-7.918343 21.022803-7.80271 28.942169 0.26299l287.685141 292.960285c7.818059 7.961322 7.818059 20.717857 0 28.67918L397.895219 802.826692C393.887952 806.907637 388.591319 808.954249 383.291616 808.954249z" p-id="1829" fill="#CECED0"></path></svg>
+                    <svg t="1619085790615" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2943" width="16" height="16"><path d="M842.837333 469.333333a32 32 0 0 1 31.701334 27.648l0.298666 4.352v298.666667a138.666667 138.666667 0 0 1-130.773333 138.496l-7.893333 0.213333h-469.333334a138.666667 138.666667 0 0 1-138.453333-130.816l-0.213333-7.850666V501.333333a32 32 0 0 1 63.701333-4.352l0.298667 4.352v298.666667a74.666667 74.666667 0 0 0 68.565333 74.453333l6.101333 0.256h469.333334a74.666667 74.666667 0 0 0 74.410666-68.565333l0.256-6.101333V501.333333a32 32 0 0 1 32-32zM265.386667 307.882667l213.162666-213.162667a32 32 0 0 1 41.642667-3.114667l3.584 3.072 213.546667 213.205334a32 32 0 0 1-41.642667 48.384l-3.584-3.114667-158.848-158.549333 0.042667 498.944a32 32 0 0 1-27.648 31.701333l-4.352 0.298667a32 32 0 0 1-31.701334-27.648l-0.298666-4.352V194.474667L310.613333 353.152a32 32 0 0 1-41.642666 3.114667l-3.584-3.114667a32 32 0 0 1-3.114667-41.685333l3.114667-3.584 213.162666-213.162667L265.386667 307.882667z" p-id="2944" fill="#CECED0"></path></svg>
+                </div>
+            </div>
+            <div class="camera" v-show="currentPage == 'cameraPage'"></div>
+            <a href="javascript:void(0)" class="taking" v-show="currentPage == 'cameraPage'" @click="selfie"></a>
+            <div id="preview" v-cloak v-show="currentPage == 'cameraPage'">
                 <img  :src="previewImg" width="36px" height="36px" alt="">
             </div>
-            <span draggable="true" class="rail-bar" @mousedown="watchRailbarDown()" @touchend="goHome('touchend')"  @dragend="goHome('drag')"  @mouseup="watchRailbarUp()"  ></span>
-            <div class="icon-right" v-show="notCamera">
+            <span class="rail-tip" v-show="currentPage == 'lockPage'">向上轻扫以解锁</span>
+            <span draggable="true" class="rail-bar" @mousemove="watchRailMove()" @mousedown="watchRailbarDown()" @touchend="goHome('touchend')"  @dragend="goHome('drag')"  @mouseup="watchRailbarUp()"  ></span>
+            <div class="icon-right" v-show="currentPage != 'cameraPage'">
                 <svg t="1618891395663" class="icon signal" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="9546" width="16" height="16"><path d="M192.078 549.53h-91.406C79.314 549.53 62 566.843 62 588.2v166.377c0 21.358 17.314 38.672 38.672 38.672h91.406c21.358 0 38.672-17.314 38.672-38.672V588.201c0-21.357-17.314-38.672-38.672-38.672z m243.72-93.78h-91.405c-21.358 0-38.672 17.314-38.672 38.672v260.156c0 21.358 17.314 38.672 38.672 38.672h91.406c21.357 0 38.672-17.314 38.672-38.672V494.422c0-21.358-17.315-38.672-38.672-38.672z m241.436-112.5h-91.406c-21.357 0-38.672 17.314-38.672 38.672v372.656c0 21.358 17.315 38.672 38.672 38.672h91.406c21.358 0 38.672-17.314 38.672-38.672V381.922c0-21.358-17.314-38.672-38.672-38.672z m246.094-112.5h-91.406c-21.358 0-38.672 17.314-38.672 38.672v485.156c0 21.358 17.314 38.672 38.672 38.672h91.406c21.358 0 38.672-17.314 38.672-38.672V269.422c0-21.358-17.314-38.672-38.672-38.672z" p-id="9547" fill="#ffffff"></path></svg>
                 <svg t="1618891679230" class="icon wifi" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="10705" width="16" height="16"><path d="M488.885 307.2c141.743 0 277.99 54.434 380.713 151.983 7.706 7.545 20.048 7.384 27.701-0.27l73.89-74.536a20.534 20.534 0 0 0-0.162-29.103C701.5 97.118 276.27 97.118 6.69 355.274a20.534 20.534 0 0 0-0.162 29.103l73.944 74.537c7.545 7.707 19.94 7.76 27.702 0.215A552.798 552.798 0 0 1 488.83 307.2z m0 242.526c77.878 0 152.953 28.888 210.675 81.112a19.833 19.833 0 0 0 27.702-0.377l73.835-74.537a20.588 20.588 0 0 0-0.323-29.319 458.105 458.105 0 0 0-623.616 0 20.588 20.588 0 0 0-0.27 29.32l73.836 74.536c7.546 7.599 19.887 7.76 27.648 0.377a313.937 313.937 0 0 1 210.513-81.112zM630.79 727.58a20.049 20.049 0 0 0-0.593-29.157 218.974 218.974 0 0 0-282.624 0 20.049 20.049 0 0 0-0.593 29.21l127.73 128.81a19.941 19.941 0 0 0 28.35 0l127.73-128.81z" p-id="10706" fill="#ffffff"></path></svg>
                 <svg t="1618893985082" class="ico battery" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="14988" width="16" height="16"><path d="M792 288H128c-52.8 0-96 43.2-96 96v256c0 52.8 43.2 96 96 96h664c52.8 0 96-43.2 96-96V384c0-52.8-43.2-96-96-96z m40 352c0 22-18 40-40 40H128c-22 0-40-18-40-40V384c0-22 18-40 40-40h664c22 0 40 18 40 40v256z m96-230.8v205.6c32 0 64-55.4 64-102.8s-32-102.8-64-102.8z" p-id="14989" fill="#ffffff"></path><path d="M768 384H152c-13.2 0-24 10.8-24 24v208c0 13.2 10.8 24 24 24h616c13.2 0 24-10.8 24-24V408c0-13.2-10.8-24-24-24z" p-id="14990" fill="#ffffff"></path></svg>
             </div>
-            <div class="lock-icon" v-show="notCamera">
+            <div class="lock-icon" v-show="currentPage == 'lockPage'">
                 <svg t="1618892441647" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="12458" width="32" height="32"><path d="M365.714286 438.857143l292.571429 0 0-109.714286q0-60.562286-42.861714-103.424t-103.424-42.861714-103.424 42.861714-42.861714 103.424l0 109.714286zM841.142857 493.714286l0 329.142857q0 22.820571-16.018286 38.838857t-38.838857 16.018286l-548.571429 0q-22.820571 0-38.838857-16.018286t-16.018286-38.838857l0-329.142857q0-22.820571 16.018286-38.838857t38.838857-16.018286l18.285714 0 0-109.714286q0-105.179429 75.410286-180.589714t180.589714-75.410286 180.589714 75.410286 75.410286 180.589714l0 109.714286 18.285714 0q22.820571 0 38.838857 16.018286t16.018286 38.838857z" p-id="12459" fill="#ffffff"></path></svg>
             </div>
-            <div class="datetime" v-show="notCamera">
+            <div class="datetime" v-show="currentPage == 'lockPage'">
                 <p class="time" v-cloak>{{currentTime}}</p>
                 <p class="date" v-cloak>{{date}}</p>
             </div>
-            <div class="bottom-icon" @click="switchLight" v-show="notCamera">
+            <div class="bottom-icon" @click="switchLight" v-show="currentPage == 'lockPage'">
                 <svg t="1618893523865" class="icon flashlight" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="13588" width="32" height="32"><path d="M634 64H390c-35.2 0-48 28.8-48 64h340c0-35.2-12.8-64-48-64zM392.2 295c15.2 17.6 23.8 40 23.8 63.4v531.8c0 43.8 35.8 69.8 79.8 69.8h32.6c43.8 0 79.8-25.8 79.8-69.8V358.4c0-23.4 8.6-45.6 23.8-63.4 30.8-35.8 50-69 50-135H342c0 70 19.2 99.2 50.2 135z m63.8 181.6c0-31.2 25.2-56.6 56-56.6s56 25.4 56 56.6v70.8c0 31.2-25.2 56.6-56 56.6s-56-25.4-56-56.6v-70.8z" p-id="13589" fill="#ffffff"></path><path d="M512 546m-40 0a40 40 0 1 0 80 0 40 40 0 1 0-80 0Z" p-id="13590" fill="#ffffff"></path></svg>
             </div>
-            <div class="bottom-icon-right" @click="openCamera" v-show="notCamera">
+            <div class="bottom-icon-right" @click="openCamera" v-show="currentPage == 'lockPage'">
                 <svg t="1618893809662" class="icon camera-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="14158" width="32" height="32"><path d="M512 550m-115 0a115 115 0 1 0 230 0 115 115 0 1 0-230 0Z" p-id="14159" fill="#ffffff"></path><path d="M835 320H726c-9.2 0-17.8-4-24-10.8-56.8-63.6-78.2-85.2-101.4-85.2h-171c-23.4 0-46.4 21.6-103.4 85.4-6 6.8-14.8 10.6-23.8 10.6h-8.2v-16c0-8.8-7.2-16-16-16h-52c-8.8 0-16 7.2-16 16v16h-15C159.8 320 128 346.4 128 381.4v352c0 35 31.8 66.6 67 66.6h640c35.2 0 61-31.6 61-66.6v-352c0-35-25.8-61.4-61-61.4zM520 720.8c-100.6 4.6-183.4-78.2-178.8-178.8 4-87.8 75-158.8 162.8-162.8 100.6-4.6 183.4 78.2 178.8 178.8-4 87.8-75 158.8-162.8 162.8zM704 436c-14.4 0-26-11.6-26-26s11.6-26 26-26 26 11.6 26 26-11.6 26-26 26z" p-id="14160" fill="#ffffff"></path></svg>
             </div>
 
         </div>
 
-</div>
+        </div>
+    </div>
 </body>
 
 
@@ -298,12 +447,18 @@
         el: ".iphone",
         data:function(){
             return {
+                mno:"中国移动",
+                placeholder:'搜索或输入网站名称',
                 timer:'',
+                barer:'',
+                texter:'',
                 currentTime: '',
                 date: '',
                 lightStatus:false,
                 notCamera:true,
-                previewImg:'https://static.chasing-innovation.com/demo/39aa7e3169c746f2d51a68364100ea1c.jpg'
+                previewImg:'https://static.chasing-innovation.com/demo/39aa7e3169c746f2d51a68364100ea1c.jpg',
+                currentPage:"lockPage",
+                searchInputStatus:""
             }
         },
         beforeDestroy() {
@@ -314,25 +469,118 @@
         mounted:function(){
             this.getTime();
             this.getDate();
+            if (this.currentPage == 'lockPage'){
+                this.changeTextTransparency();
+                this.changeBar();
+            }
         },
         watch:{
-            notCamera:function (val){
+            currentPage:function (val){
                 var imgHome = 'url("https://static.chasing-innovation.com/demo/39aa7e3169c746f2d51a68364100ea1c.jpg") center center no-repeat';
                 var imCamera = 'url("https://static.chasing-innovation.com/dome/10420144503.png") center center no-repeat';
-                if (val){
-                    $('.ipone-inside').css('background',imgHome);
-                    $('.ipone-inside').css('background-size','189px 391px');
-
+                switch (val){
+                    case 'cameraPage':{
+                        $('.ipone-inside').css('background',imCamera);
+                        $('.ipone-inside').css('background-size','189px 391px');
+                        $('.rail-bar').css('background-color','#bca5a5');
+                        clearInterval(this.barer);
+                        clearInterval(this.texter);
+                        break;
+                    }
+                    case 'lockPage':{
+                        this.mno = '中国移动';
+                        $('.ipone-inside').css('background',imgHome);
+                        $('.ipone-inside').css('background-size','189px 391px');
+                        $('.icon-right').css('filter','none');
+                        $('.MNO').css('color','#fff');
+                        $('.rail-bar').css('background-color','#bca5a5');
+                        this.changeTextTransparency();
+                        this.changeBar();
+                        break;
+                    }
+                    case 'homePage':{
+                        this.mno = this.currentTime;
+                        $('.ipone-inside').css('background',imgHome);
+                        $('.ipone-inside').css('background-size','189px 391px');
+                        $('.icon-right').css('filter','none');
+                        $('.MNO').css('color','#fff');
+                        $('.rail-bar').css('background-color','#bca5a5');
+                        clearInterval(this.barer);
+                        clearInterval(this.texter);
+                        break;
+                    }
+                    case 'safariPage':{
+                        this.mno = this.currentTime;
+                        $('.ipone-inside').css('background','#fff');
+                        $('.MNO').css('color','#151515');
+                        $('.rail-bar').css('background-color','#151515');
+                        $('.icon-right').css('filter','invert(1)');
+                        clearInterval(this.barer);
+                        clearInterval(this.texter);
+                        break;
+                    }
+                }
+            },
+            mno:function(val) {
+                if (val == '中国移动'){
+                    $('.MNO').css('transform','scale(0.6)');
+                    $('.MNO').css('left','6');
+                    $('.MNO').css('font-weight','100');
                 }else{
-                    $('.ipone-inside').css('background',imCamera);
-                    $('.ipone-inside').css('background-size','189px 391px');
+                    $('.MNO').css('transform','scale(0.8)');
+                    $('.MNO').css('left','14');
+                    $('.MNO').css('font-weight','bold');
 
                 }
             }
         },
         methods:{
+            searchSubmit(){
+                var el = $('.search-bar');
+                var searchVal = el.val();
+                window.open("https://baidu.com/s?w="+searchVal);
+            },
+            searchBlur(){
+                this.searchInputStatus = 'blur';
+                $('.search-right-text').text('');
+                $('.search-bar').css('display','block');
+            },
+            searchFocus(){
+                this.searchInputStatus = 'focus';
+                $('.search-bar').css('display','inline-block');
+                $('.search-right-text').text('取消');
+            },
+            openSafari(){
+              this.currentPage = 'safariPage';
+            },
             goHome(a){
-                this.notCamera = true;
+                $('.rail-bar').css('transform','none');
+                switch (this.currentPage){
+                    case 'lockPage':{
+                        this.currentPage = 'homePage';
+                        break;
+                    }
+                    case 'homePage':{
+                        this.currentPage = 'lockPage';
+                        break;
+                    }
+                    case 'cameraPage':{
+                        this.currentPage = 'lockPage';
+                        break;
+                    }
+                    case 'safariPage':{
+                        this.currentPage = 'homePage';
+                        break;
+                    }
+                    default:{
+                        this.currentPage = 'lockPage';
+                        break;
+                    }
+                }
+            },
+            watchRailMove() {
+                clearInterval(this.barer);
+                clearInterval(this.texter);
             },
             watchRailbarDown() {
                  $('.rail-bar').css('transform','scale(1.1)');
@@ -348,6 +596,7 @@
                 } );
             },
             openCamera(event) {
+                this.currentPage = 'cameraPage'
                 var el = event.currentTarget
                 $(el).css('transform',"scale(1.1)");
                 var _this = this;
@@ -387,6 +636,29 @@
                         _this.appendZero(new Date().getMinutes());
                     _this.currentTime = t;
                 }, 50);
+            },
+            changeBar(){
+                var bottom = 9;
+                this.barer = setInterval(function() {
+                    if (bottom === 13){
+                        bottom = 9;
+                    }else if (bottom === 9){
+                        bottom = 13;
+                    }
+                    $('.rail-bar').css('bottom',bottom+'px');
+                }, 1000);
+            },
+            changeTextTransparency(){
+                var el = $('.rail-tip');
+                var n = 0;
+                this.texter = setInterval(function() {
+                    if (n == 100){
+                        n = 0;
+                    }
+
+                    n += 5;
+                    el.css('color','rgb(188 165 165 / '+n+'%)');
+                }, 100);
             },
             appendZero(obj) {
                 if (obj < 10) {
