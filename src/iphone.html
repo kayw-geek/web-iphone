@@ -56,6 +56,7 @@
         transition: background 0.3s linear;
     }
     .bang{
+        z-index:2;
         margin: 0 auto;
         width: 115px;
         height: 16px;
@@ -135,6 +136,7 @@
         text-align: center;
     }
     .mno-block{
+        z-index:2;
         position: absolute;
         top: 11px;
         width: 50px;
@@ -258,7 +260,7 @@
         background: #f7f7f724;
         backdrop-filter: blur(6px);
         display: flex;
-        justify-content: center;
+        justify-content: space-evenly;;
         align-items: center;
         flex-direction: row;
         position: absolute;
@@ -269,7 +271,10 @@
         width: 42px;
         height: 42px;
         cursor: pointer;
-
+    }
+    .map{
+        width: 38px;
+        height: 38px;
     }
     .search-bar{
         background-color: #E8E8EA;
@@ -363,11 +368,24 @@
         height: 300px;
         overflow: auto;
     }
-
+    .map-page{
+        width: 187px;
+        height: 390px;
+        position: absolute;
+        top: 9px;
+        border-radius: 20px;
+        outline: none;
+        overflow: hidden;
+    }
+    .mapboxgl-canvas{
+        outline: none;
+    }
 </style>
 <script src="https://static.chasing-innovation.com/js/jquery.min.js"></script>
 <script src="https://static.chasing-innovation.com/vue.min.js"></script>
 <script src="https://static.chasing-innovation.com/js/webcam.js"></script>
+<link href="https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.css"></link>
+<script src="https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.js"></script>
 <body>
 	<div class="bg">
     <div class="iphone">
@@ -386,8 +404,12 @@
             <div class="homepage" v-show="currentPage == 'homePage'">
                 <div class="app-list" v-show="currentPage == 'homePage'"></div>
                 <div class="dock" v-show="currentPage == 'homePage'">
+                    <img  class="app map" @click="openMap" src="https://static.chasing-innovation.com/demo/apple.png" alt="">
                     <img class="app safari" @click="openSafari" src="https://static.chasing-innovation.com/demo/Hamzasaleem-Stock-Style-3-Safari.ico" alt="">
                 </div>
+            </div>
+            <div id="map" class="map-page" v-show="currentPage == 'mapPage'">
+
             </div>
             <div class="safari-page" v-show="currentPage == 'safariPage'">
                 <input @focus="searchFocus" @blur="searchBlur" @keyup.enter="searchSubmit()" type="text" class="search-bar iconfont"  :placeholder="'&#xe64c '+placeholder">
@@ -458,7 +480,10 @@
                 notCamera:true,
                 previewImg:'https://static.chasing-innovation.com/demo/39aa7e3169c746f2d51a68364100ea1c.jpg',
                 currentPage:"lockPage",
-                searchInputStatus:""
+                searchInputStatus:"",
+                latitude:'31.230416',
+                longitude:'121.473701',
+                OpenMapStatus:false,
             }
         },
         beforeDestroy() {
@@ -519,6 +544,16 @@
                         clearInterval(this.texter);
                         break;
                     }
+                    case 'mapPage':{
+                        this.mno = this.currentTime;
+                        $('.ipone-inside').css('background','#fff');
+                        $('.MNO').css('color','#151515');
+                        $('.rail-bar').css('background-color','#151515');
+                        $('.icon-right').css('filter','invert(1)');
+                        clearInterval(this.barer);
+                        clearInterval(this.texter);
+                        break;
+                    }
                 }
             },
             mno:function(val) {
@@ -535,6 +570,61 @@
             }
         },
         methods:{
+            getCoord(){
+                if (this.OpenMapStatus){
+                    return ;
+                }
+                var _this = this;
+                if (navigator.geolocation)
+                {
+                    navigator.geolocation.getCurrentPosition(function(position) {
+                        _this.mapbox(position.coords.latitude, position.coords.longitude);
+                    });
+                }
+            },
+            mapbox(latitude,longitude){
+                this.OpenMapStatus = true;
+                mapboxgl.accessToken = 'pk.eyJ1Ijoid2Vpa2FpbWFwIiwiYSI6ImNqeG9odnhoZzA3NjMzbm10dnNmcDB0ZHkifQ.Ady9wLEj9BVj2Wqjb_tHFw';
+                var geojson = {
+                    "type": "FeatureCollection",
+                    "features": [{
+                        "type": "Feature",
+                        "properties": {
+                            "message": "Foo",
+                            "iconSize": [15, 15]
+                        },
+                        "geometry": {
+                            "type": "Point",
+                            "coordinates": [longitude,latitude]
+                        }
+                    },
+                    ]
+                };
+                var map = new mapboxgl.Map({
+                    container: 'map',
+                    center:[longitude,latitude],
+                    zoom:12,
+                    style: 'mapbox://styles/mapbox/streets-v11',
+                });
+// add markers to map
+                geojson.features.forEach(function(marker) {
+// create a DOM element for the marker
+                    var el = document.createElement('div');
+                    el.className = 'marker';
+                    el.style.backgroundImage = 'url(https://static.chasing-innovation.com/favicon.ico)';
+                    el.style.width = '15px';
+                    el.style.height = '15px';
+
+                    el.addEventListener('click', function() {
+                        window.alert(marker.properties.message);
+                    });
+
+// add marker to map
+                    new mapboxgl.Marker(el)
+                        .setLngLat(marker.geometry.coordinates)
+                        .addTo(map);
+                });
+            },
             searchSubmit(){
                 var el = $('.search-bar');
                 var searchVal = el.val();
@@ -549,6 +639,10 @@
                 this.searchInputStatus = 'focus';
                 $('.search-bar').css('display','inline-block');
                 $('.search-right-text').text('取消');
+            },
+            openMap(){
+                this.getCoord();
+                this.currentPage = 'mapPage';
             },
             openSafari(){
               this.currentPage = 'safariPage';
@@ -569,6 +663,10 @@
                         break;
                     }
                     case 'safariPage':{
+                        this.currentPage = 'homePage';
+                        break;
+                    }
+                    case 'mapPage':{
                         this.currentPage = 'homePage';
                         break;
                     }
